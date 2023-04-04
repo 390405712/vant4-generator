@@ -1,6 +1,6 @@
 {
   "name": "vant3-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "基于vant封装的表单生成器",
   "type": "module",
   "main": "./dist/index.js",

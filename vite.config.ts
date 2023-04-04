@@ -15,11 +15,10 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['vue', 'element-plus'],
+      external: ['vue', 'vant'],
       output: {
         globals: {
           vue: 'Vue',
-          'element-plus': 'element-plus',
         },
       },
     },

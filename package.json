@@ -1,0 +1,32 @@
+{
+  "name": "vant3-generator",
+  "version": "1.0.1",
+  "description": "基于vant封装的表单生成器",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "keywords": [
+    "vue3",
+    "vant",
+    "form",
+    "generator"
+  ],
+  "author": "NieR",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.9.5",
+    "vant": "3.6.11",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "path": "^0.12.7",
+    "sass": "^1.58.2",
+    "vite": "^4.1.2",
+    "vite-plugin-dts": "^2.0.0-beta.1",
+    "vite-plugin-style-inject": "^0.0.1"
+  }
+}

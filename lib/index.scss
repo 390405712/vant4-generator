@@ -1,0 +1,17 @@
+// .van-checkbox-group{
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 10px;
+// }
+
+.van-checkbox-group--horizontal,
+.van-radio-group--horizontal {
+  gap: 10px 0;
+  justify-content: flex-end;
+}
+
+.field-switch {
+  .van-field__right-icon {
+    height: 24px;
+  }
+}

@@ -1,9 +1,10 @@
 {
   "name": "vant3-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "基于vant封装的表单生成器",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "dist/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "vite build"
   },
@@ -15,12 +16,10 @@
   ],
   "author": "NieR",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "typescript": "^4.9.5",
     "vant": "3.6.11",
-    "vue": "^3.2.47"
-  },
-  "devDependencies": {
+    "vue": "^3.2.47",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "path": "^0.12.7",

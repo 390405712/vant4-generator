@@ -2,41 +2,9 @@ import type { FieldExpose } from 'vant/lib/field/types'
 import type { CalendarExpose } from 'vant/lib/calendar/types'
 import type { PickerExpose } from 'vant/lib/picker/types'
 import type { CheckboxGroupExpose } from 'vant/lib/checkbox-group/types'
-import type { DatetimePickerExpose, DatetimePickerColumnType, DatetimePickerType } from 'vant/lib/datetime-picker/types'
 import type { UploaderExpose } from 'vant/lib/uploader/types'
 import type { RadioProps, CheckboxProps } from 'vant';
 import type { Ref } from 'vue'
-
-
-type DatetimePickerProps = {
-  title: string;
-  loading: boolean
-  readonly: boolean;
-  allowHtml: boolean;
-  itemHeight: {
-    type: (number | string)[];
-    default: number;
-  };
-  showToolbar: {
-    type: boolean;
-    default: true;
-  };
-  swipeDuration: (number | string)[]
-  visibleItemCount: (number | string)[]
-  cancelButtonText: string;
-  confirmButtonText: string;
-  filter: (type: string, values: string[]) => string[]
-  columnsOrder: DatetimePickerColumnType[]
-  formatter: (type: string, value: string) => string
-  type: DatetimePickerType
-  modelValue: Date;
-  minDate: Date
-  maxDate: Date
-  minHour: number | string
-  maxHour: number | string
-  minMinute: number | string
-  maxMinute: number | string
-}
 
 type FormEvents = {
   onSubmit?: ((...args: any[]) => any) | undefined | boolean;
@@ -94,7 +62,9 @@ type StepperEvents = {
 
 type PickerEvents = {
   onChange?: ((...args: any[]) => any) | undefined;
+  "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
   onCancel?: ((...args: any[]) => any) | undefined;
+  onClickOption?: ((...args: any[]) => any) | undefined;
   onConfirm?: ((...args: any[]) => any) | undefined;
 }
 
@@ -108,7 +78,14 @@ type CheckboxGroupEvents = {
   "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }
 
-type DatetimePickerEvents = {
+type DatePickerEvents = {
+  onCancel?: ((...args: any[]) => any) | undefined;
+  onConfirm?: ((...args: any[]) => any) | undefined;
+  onChange?: ((...args: any[]) => any) | undefined;
+  "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+}
+
+type TimePickerEvents = {
   onCancel?: ((...args: any[]) => any) | undefined;
   onConfirm?: ((...args: any[]) => any) | undefined;
   onChange?: ((...args: any[]) => any) | undefined;
@@ -173,9 +150,21 @@ type CascaderSlots = {
   }
 }
 
-type DatetimePickerSlots = {
+type DatePickerSlots = {
   slots?: {
-    default?: ((...args: any[]) => JSX.Element | string | void) | string
+    toolbar?: ((...args: any[]) => JSX.Element | string | void) | string
+    title?: ((...args: any[]) => JSX.Element | string | void) | string
+    confirm?: ((...args: any[]) => JSX.Element | string | void) | string
+    cancel?: ((...args: any[]) => JSX.Element | string | void) | string
+    option?: ((...args: any[]) => JSX.Element | string | void) | string
+    'columns-top'?: ((...args: any[]) => JSX.Element | string | void) | string
+    'columns-bottom'?: ((...args: any[]) => JSX.Element | string | void) | string
+  }
+}
+
+type TimePickerSlots = {
+  slots?: {
+    toolbar?: ((...args: any[]) => JSX.Element | string | void) | string
     title?: ((...args: any[]) => JSX.Element | string | void) | string
     confirm?: ((...args: any[]) => JSX.Element | string | void) | string
     cancel?: ((...args: any[]) => JSX.Element | string | void) | string
@@ -201,28 +190,3 @@ type UploaderSlots = {
 }
 
 type Expose = Partial<FieldExpose & CalendarExpose & PickerExpose & CheckboxGroupExpose & DatetimePickerExpose & UploaderExpose>
-
-
-/**
- * @description: formItem类型
- * @param name 表单item的key
- * @param style 行内样式
- * @param class 类名
- * @param text picker、calendar、cascader 文本值
- */
-type FormItem = {
-  // [key: string]: any
-  name: string
-  style?: any
-  class?: any
-  text?: string
-}
-/**
- * @description: control类型
- * @param style 行内样式
- * @param class 类名
- */
-type Control = {
-  style?: any
-  class?: any
-}

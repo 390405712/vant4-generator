@@ -544,17 +544,12 @@
   resolved "https://registry.npmjs.org/@types/estree/-/estree-1.0.0.tgz#5fb2e536c1ae9bf35366eed879e827fa59ca41c2"
   integrity sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==
 
-"@vant/icons@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.npmjs.org/@vant/icons/-/icons-1.8.0.tgz#36b13f2e628b533f6523a93a168cf02f07056674"
-  integrity sha512-sKfEUo2/CkQFuERxvkuF6mGQZDKu3IQdj5rV9Fm0weJXtchDSSQ+zt8qPCNUEhh9Y8shy5PzxbvAfOOkCwlCXg==
-
-"@vant/popperjs@^1.2.1":
+"@vant/popperjs@^1.3.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@vant/popperjs/-/popperjs-1.3.0.tgz#e0eff017124b5b2352ef3b36a6df06277f4400f2"
   integrity sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==
 
-"@vant/use@^1.4.2":
+"@vant/use@^1.5.1":
   version "1.5.1"
   resolved "https://registry.npmjs.org/@vant/use/-/use-1.5.1.tgz#bc5eb46d92d64e4261f0a9e31a040bdb3d8282b3"
   integrity sha512-Zxd7lDz/LliVYEQi3PR9a8CQa/kGCVzF0u9hqDMaTlgXlbG0wHMFPllrcG0ThR6bfs8xrYVuSFM9pJn6HSoUGQ==
@@ -1387,14 +1382,13 @@ validator@^13.7.0:
   resolved "https://registry.npmjs.org/validator/-/validator-13.9.0.tgz#33e7b85b604f3bbce9bb1a05d5c3e22e1c2ff855"
   integrity sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==
 
-vant@3.6.11:
-  version "3.6.11"
-  resolved "https://registry.npmjs.org/vant/-/vant-3.6.11.tgz#62283da2b234ec6db38025c4977af7e96f660680"
-  integrity sha512-ueEu4rOePQUoeP6mjuVHogmg3t05yejrYkFCG/NMWY2haOscvQTFGDVuUazmNdjgizqL1D9rH6xV0qy2aRWF9Q==
+vant@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npmjs.org/vant/-/vant-4.1.2.tgz#080fd7cdd2e0af80bcd105949b0b4c390083cac0"
+  integrity sha512-iRUYBR5zDbs7O0UTxauyW/0XbJoE0g/eHipn0y3QxXeazdmNiaV0kGbBKRJ8vE/7p74zila/O5LzDiYbPDDN7Q==
   dependencies:
-    "@vant/icons" "^1.8.0"
-    "@vant/popperjs" "^1.2.1"
-    "@vant/use" "^1.4.2"
+    "@vant/popperjs" "^1.3.0"
+    "@vant/use" "^1.5.1"
 
 vite-plugin-dts@^2.0.0-beta.1:
   version "2.2.0"

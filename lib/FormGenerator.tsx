@@ -1,9 +1,9 @@
-import { Form, CellGroup, Button, Field, Calendar, Cascader, Popup, Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, Picker, DatetimePicker, Stepper, Uploader } from 'vant'
+import { Form, CellGroup, Button, Field, Calendar, Cascader, Popup, Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, Picker, DatePicker, TimePicker, Stepper, Uploader } from 'vant'
 import { defineComponent, ref } from 'vue'
 import type { Ref } from 'vue'
-import type { FormAttrs, FormOption } from './type.d'
+import type { FormAttrs, FormOption } from './type'
 import type { Expose } from './vant'
-import type { DatetimePickerType } from 'vant/lib/datetime-picker/types'
+import type { DatePickerColumnType } from 'vant/lib/date-picker/DatePicker.d'
 import type { CascaderOption } from 'vant/lib/cascader/types'
 
 export default defineComponent({
@@ -34,30 +34,6 @@ export default defineComponent({
       function renderField(formOption: FormOption & { showPopup?: boolean }, custom?: boolean) {
         let model = custom ? formOption.formItem.text : _attrs.model[formOption.formItem.name]
         return <Field is-link readonly onClick={_attrs.disabled ? () => '' : () => { formOption.showPopup = true }} inputAlign='right' v-model={model} v-slots={{ ...formOption?.formItem?.slots }} {...formOption.formItem} />
-      }
-      function formatterDate(scope: Date, type: DatetimePickerType = 'datetime') {
-        let val
-        switch (type) {
-          case 'date':
-            val = `${scope.getFullYear()}-${String(scope.getMonth() + 1).padStart(2, '0')}-${String(scope.getDate()).padStart(2, '0')}`
-            break;
-          case 'datehour':
-            val = `${scope.getFullYear()}-${String(scope.getMonth() + 1).padStart(2, '0')}-${String(scope.getDate()).padStart(2, '0')} ${String(scope.getHours()).padStart(2, '0')}`
-            break;
-          case 'year-month':
-            val = `${scope.getFullYear()}-${String(scope.getMonth() + 1).padStart(2, '0')}`
-            break;
-          case 'month-day':
-            val = `${String(scope.getMonth() + 1).padStart(2, '0')}-${String(scope.getDate()).padStart(2, '0')}`
-            break;
-          case 'time':
-            val = scope
-            break;
-          case 'datetime':
-            val = `${scope.getFullYear()}-${String(scope.getMonth() + 1).padStart(2, '0')}-${String(scope.getDate()).padStart(2, '0')} ${String(scope.getHours()).padStart(2, '0')}:${String(scope.getMinutes()).padStart(2, '0')}:${String(scope.getSeconds()).padStart(2, '0')}`
-            break;
-        }
-        return val
       }
       function renderControl(formOption: FormOption) {
         $refs[formOption.formItem.name] = ref()
@@ -138,18 +114,31 @@ export default defineComponent({
               </Popup>
             </>
             break;
-          case 'datetimePicker':
+          case 'datePicker':
             return <>
               {renderField(formOption)}
               <Popup v-model={[formOption.showPopup, 'show', ['']]} round position="bottom" {...formOption.popup}>
-                <DatetimePicker ref={$refs[formOption.formItem.name]} v-model={_attrs.model[formOption.formItem.name]}
+                <DatePicker ref={$refs[formOption.formItem.name]}
                   onCancel={() => { formOption.showPopup = false }}
-                  onChange={(scope: Date) => {
-                    _attrs.model[formOption.formItem.name] = formatterDate(scope, formOption?.control?.type)
-                  }}
-                  onConfirm={(scope: Date) => {
+                  onConfirm={(scope: { selectedValues: string[], selectedOptions: { text: string, value: string }[], columnIndex: number, selectedIndexes: number[] }) => {
+                    _attrs.model[formOption.formItem.name] = scope.selectedValues.join('-')
                     formOption.showPopup = false;
-                    _attrs.model[formOption.formItem.name] = formatterDate(scope, formOption?.control?.type)
+                  }}
+                  v-slots={{ ...formOption?.control?.slots }}
+                  {...formOption.control}
+                />
+              </Popup>
+            </>
+            break;
+          case 'timePicker':
+            return <>
+              {renderField(formOption)}
+              <Popup v-model={[formOption.showPopup, 'show', ['']]} round position="bottom" {...formOption.popup}>
+                <TimePicker ref={$refs[formOption.formItem.name]}
+                  onCancel={() => { formOption.showPopup = false }}
+                  onConfirm={(scope: { selectedValues: string[], selectedOptions: { text: string, value: string }[], columnIndex: number, selectedIndexes: number[] }) => {
+                    _attrs.model[formOption.formItem.name] = scope.selectedValues.join(':')
+                    formOption.showPopup = false;
                   }}
                   v-slots={{ ...formOption?.control?.slots }}
                   {...formOption.control}

@@ -1,6 +1,6 @@
-# 基于vant3封装的表单生成器
+# 基于vant4封装的表单生成器
 
-使用文档：[vant3-generator](https://qq390405712.gitee.io/vant3-generator-docs)
+使用文档：[vant4-generator](https://qq390405712.gitee.io/vant4-generator-docs)
 
 ## 安装
 
@@ -10,13 +10,13 @@
     # 选择一个你喜欢的包管理器
 
     # NPM
-    $ npm install vant@3.6.11 vant3-generator --save
+    $ npm install vant vant4-generator --save
 
     # Yarn
-    $ yarn add vant@3.6.11 vant3-generator
+    $ yarn add vant vant4-generator
 
     # pnpm
-    $ pnpm install vant@3.6.11 vant3-generator
+    $ pnpm install vant vant4-generator
   ```
 
 - **步骤 2：** 引入依赖
@@ -26,7 +26,7 @@
 import App from './App.vue'
 import 'vant/lib/index.css';
 
-import { FormGenerator } from 'vant3-generator'
+import { FormGenerator } from 'vant4-generator'
 
 const app = createApp(App)
 
@@ -40,7 +40,7 @@ app.mount('#app')
   <FormGenerator :model="form" :formOption="formOption" />
 </template>
 <script lang="tsx" setup>
-import { FormGenerator } from 'vant3-generator'
+import { FormGenerator } from 'vant4-generator'
 // ...
 </script>
 ```

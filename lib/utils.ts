@@ -1,5 +1,5 @@
 import type { FormRules } from 'element-plus'
-import type { FormOption } from './type.d'
+import type { FormOption } from './type'
 import type { FieldRule } from 'vant';
 
 type option = {

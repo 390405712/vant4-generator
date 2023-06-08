@@ -7,7 +7,7 @@ import type { RadioProps, CheckboxProps } from 'vant';
 import type { Ref } from 'vue'
 
 type FormEvents = {
-  onSubmit?: ((...args: any[]) => any) | undefined | boolean;
+  onSubmit?: ((...args: any[]) => any) | undefined;
   onFailed?: ((...args: any[]) => any) | undefined;
 }
 

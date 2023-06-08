@@ -59,9 +59,9 @@ export type RefFormGenerator = () => {
  * @param model 表单数据对象
  * @param formOption 表单生成配置
  */
-export type FormAttrs = {
+export type FormAttrs<T = Record<string, any>> = {
   [key: string]: any
-  model: Record<string, any>
+  model: T
   formOption: FormOption[]
 } & Partial<FormProps> & FormEvents
 
@@ -113,37 +113,41 @@ export type Picker = {
   popup?: Partial<PopupProps>
 }
 
+export type RadioGroup = Array<{
+  label?: string
+  value: string,
+  onClick?: ((...args: any[]) => any) | undefined;
+  slots?: {
+    default?: ((...args: any[]) => JSX.Element | string | void) | string
+    icon?: ((...args: any[]) => JSX.Element | string | void) | string
+  }
+} & Partial<RadioProps>>
+
 export type Radio = {
   type: "radio"
   show?: boolean
   formItem: FormItem & Partial<FieldProps>
   control: Control & Partial<RadioGroupProps> & RadioGroupEvents & {
-    radioGroup: Array<{
-      label?: string
-      value: string,
-      onClick?: ((...args: any[]) => any) | undefined;
-      slots?: {
-        default?: ((...args: any[]) => JSX.Element | string | void) | string
-        icon?: ((...args: any[]) => JSX.Element | string | void) | string
-      }
-    } & Partial<RadioProps>>
+    radioGroup: RadioGroup
   }
 }
+
+export type CheckboxGroup = Array<{
+  label?: string
+  value: string,
+  onClick?: ((...args: any[]) => any) | undefined;
+  slots?: {
+    default?: ((...args: any[]) => JSX.Element | string | void) | string
+    icon?: ((...args: any[]) => JSX.Element | string | void) | string
+  }
+} & Partial<CheckboxProps>>
 
 export type Checkbox = {
   type: "checkbox"
   show?: boolean
   formItem: FormItem & Partial<FieldProps>
   control: Control & Partial<CheckboxGroupProps> & CheckboxGroupEvents & {
-    checkboxGroup: Array<{
-      label?: string
-      value: string,
-      onClick?: ((...args: any[]) => any) | undefined;
-      slots?: {
-        default?: ((...args: any[]) => JSX.Element | string | void) | string
-        icon?: ((...args: any[]) => JSX.Element | string | void) | string
-      }
-    } & Partial<CheckboxProps>>
+    checkboxGroup: CheckboxGroup
   }
 }
 

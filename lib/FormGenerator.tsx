@@ -1,7 +1,7 @@
 import { Form, CellGroup, Button, Field, Calendar, Cascader, Popup, Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, Picker, DatePicker, TimePicker, Stepper, Uploader } from 'vant'
 import { defineComponent, ref } from 'vue'
 import type { Ref } from 'vue'
-import type { FormAttrs, FormOption } from './type'
+import type { FormAttrs, FormOption, CheckboxGroup as CheckboxGroupType,RadioGroup as RadioGroupType } from './type'
 import type { Expose } from './vant'
 import type { DatePickerColumnType } from 'vant/lib/date-picker/DatePicker.d'
 import type { CascaderOption } from 'vant/lib/cascader/types'
@@ -45,7 +45,7 @@ export default defineComponent({
             return <Field inputAlign='right' {...formOption.formItem} v-slots={{
               input: () => (
                 <CheckboxGroup ref={$refs[formOption.formItem.name]} disabled={_attrs.disabled} direction="horizontal" v-model={_attrs.model[formOption.formItem.name]} {...formOption?.control} >
-                  {formOption.control.checkboxGroup.map((controlOptionItem) => (
+                  {(formOption.control.checkboxGroup as CheckboxGroupType).map((controlOptionItem) => (
                     <Checkbox  {...controlOptionItem} name={controlOptionItem.value} v-slots={{ ...controlOptionItem?.slots }} >{controlOptionItem.label}</Checkbox>
                   ))}
                 </CheckboxGroup>
@@ -57,7 +57,7 @@ export default defineComponent({
             return <Field inputAlign='right' {...formOption.formItem} v-slots={{
               input: () => (
                 <RadioGroup ref={$refs[formOption.formItem.name]} disabled={_attrs.disabled} direction="horizontal" v-model={_attrs.model[formOption.formItem.name]} {...formOption?.control} >
-                  {formOption.control.radioGroup.map((controlOptionItem) => (
+                  {(formOption.control.radioGroup as RadioGroupType).map((controlOptionItem) => (
                     <Radio name={controlOptionItem.value} v-slots={{ ...controlOptionItem?.slots }} {...controlOptionItem}>{controlOptionItem.label}</Radio>
                   ))}
                 </RadioGroup>

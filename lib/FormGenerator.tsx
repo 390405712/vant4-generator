@@ -1,7 +1,7 @@
 import { Form, CellGroup, Button, Field, Calendar, Cascader, Popup, Checkbox, CheckboxGroup, Radio, RadioGroup, Switch, Picker, DatePicker, TimePicker, Stepper, Uploader } from 'vant'
 import { defineComponent, ref } from 'vue'
 import type { Ref } from 'vue'
-import type { FormAttrs, FormOption, CheckboxGroup as CheckboxGroupType,RadioGroup as RadioGroupType } from './type'
+import type { FormAttrs, FormOption, CheckboxGroup as CheckboxGroupType, RadioGroup as RadioGroupType } from './type'
 import type { Expose } from './vant'
 import type { DatePickerColumnType } from 'vant/lib/date-picker/DatePicker.d'
 import type { CascaderOption } from 'vant/lib/cascader/types'
@@ -93,20 +93,12 @@ export default defineComponent({
             return <>
               {renderField(formOption, true)}
               <Popup v-model={[formOption.showPopup, 'show', ['']]} round position="bottom" {...formOption.popup}>
-                <Picker ref={$refs[formOption.formItem.name]} v-model={_attrs.model[formOption.formItem.name]}
+                <Picker ref={$refs[formOption.formItem.name]}
                   onCancel={() => { formOption.showPopup = false }}
-                  onConfirm={(scope) => {
+                  onConfirm={(scope: { selectedOptions: Record<string, any>[], selectedValues: Record<string, any>[] }) => {
                     formOption.showPopup = false;
-                    if (Array.isArray(scope)) {
-                      _attrs.model[formOption.formItem.name] = scope.reduce((arr, item) => {
-                        arr.push(typeof item === 'object' ? item?.[formOption?.control?.columnsFieldNames?.values ?? 'value'] : item)
-                        return arr
-                      }, []);
-                      formOption.formItem.text = scope.map((item) => typeof item === 'object' ? item?.[formOption?.control?.columnsFieldNames?.text ?? 'text'] : item).join('/');
-                    } else {
-                      _attrs.model[formOption.formItem.name] = scope[formOption?.control?.columnsFieldNames?.values ?? 'value'];
-                      formOption.formItem.text = scope[formOption?.control?.columnsFieldNames?.text ?? 'text'];
-                    }
+                    _attrs.model[formOption.formItem.name] = Array.isArray(scope.selectedValues) && scope.selectedValues.length === 1 ? scope.selectedValues[0] : scope.selectedValues;
+                    formOption.formItem.text = scope.selectedOptions.map((item) => typeof item === 'object' ? item?.[formOption?.control?.columnsFieldNames?.text ?? 'text'] : item).join('/');
                   }}
                   v-slots={{ ...formOption?.control?.slots }}
                   {...formOption.control}

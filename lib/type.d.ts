@@ -42,8 +42,6 @@ import type {
   SwitchSlots,
   UploaderSlots,
   Expose,
-  FormItem,
-  Control,
 } from './vant'
 
 /**
@@ -79,7 +77,7 @@ type FormItem = {
   style?: any
   class?: any
   text?: string
-}
+} & FieldSlots
 /**
  * @description: control类型
  * @param style 行内样式

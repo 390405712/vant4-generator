@@ -145,7 +145,7 @@ export default defineComponent({
                 show-confirm={formOption?.control?.type === 'multiple'}
                 onConfirm={(value) => {
                   formOption.showPopup = false;
-                  const formatDate = (date: Date) => `${date?.getFullYear?.()}-${date?.getMonth?.() + 1}-${date?.getDate?.()}`
+                  const formatDate = (date: Date) => `${date?.getFullYear?.()}-${String(date?.getMonth?.() + 1).padStart(2, '0')}-${String(date?.getDate?.()).padStart(2, '0')}`
                   switch (formOption?.control?.type) {
                     case 'multiple':
                       _attrs.model[formOption.formItem.name] = value.reduce((arr: string[], item: Date) => {
@@ -155,7 +155,7 @@ export default defineComponent({
                       formOption.formItem.text = `选择了 ${value.length} 个日期`
                       break;
                     case 'range':
-                      _attrs.model[formOption.formItem.name] = `${formatDate(value[0])}~${formatDate(value[1])}`
+                      _attrs.model[formOption.formItem.name] = [formatDate(value[0]),formatDate(value[1])]
                       break;
                     default:
                       _attrs.model[formOption.formItem.name] = formatDate(value)

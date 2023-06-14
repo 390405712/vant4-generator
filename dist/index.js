@@ -1,5 +1,5 @@
-(function(){ try {var elementStyle = document.createElement('style'); elementStyle.appendChild(document.createTextNode(".van-checkbox-group--horizontal,.van-radio-group--horizontal{gap:10px 0;justify-content:flex-end}.field-switch .van-field__right-icon{height:24px}")); document.head.appendChild(elementStyle);} catch(e) {console.error('vite-plugin-css-injected-by-js', e);} })();import { defineComponent as R, ref as S, createVNode as s, mergeProps as c, Fragment as g, createTextVNode as D, isVNode as E } from "vue";
-import { Form as q, CellGroup as v, Button as T, Field as P, Popup as G, Cascader as M, Calendar as B, TimePicker as K, DatePicker as Y, Picker as H, Stepper as J, Uploader as L, Switch as Q, RadioGroup as W, Radio as X, CheckboxGroup as Z, Checkbox as f } from "vant";
+(function(){ try {var elementStyle = document.createElement('style'); elementStyle.appendChild(document.createTextNode(".van-checkbox-group--horizontal,.van-radio-group--horizontal{gap:10px 0;justify-content:flex-end}.field-switch .van-field__right-icon{height:24px}")); document.head.appendChild(elementStyle);} catch(e) {console.error('vite-plugin-css-injected-by-js', e);} })();import { defineComponent as R, ref as $, createVNode as s, mergeProps as c, Fragment as g, createTextVNode as D, isVNode as E } from "vue";
+import { Form as q, CellGroup as v, Button as T, Field as P, Popup as S, Cascader as M, Calendar as B, TimePicker as K, DatePicker as Y, Picker as H, Stepper as J, Uploader as L, Switch as Q, RadioGroup as W, Radio as X, CheckboxGroup as Z, Checkbox as f } from "vant";
 function z(w) {
   return typeof w == "function" || Object.prototype.toString.call(w) === "[object Object]" && !E(w);
 }
@@ -11,7 +11,7 @@ const ee = /* @__PURE__ */ R({
     slots: r,
     emit: m
   }) {
-    const a = n, h = S(), t = {};
+    const a = n, h = $(), t = {};
     return V(() => ({
       ...h.value,
       $refs: t
@@ -53,8 +53,8 @@ const ee = /* @__PURE__ */ R({
         });
       }
       function N(e) {
-        var j, x, C, A, $;
-        switch (t[e.formItem.name] = S(), e.type) {
+        var j, x, C, A, G;
+        switch (t[e.formItem.name] = $(), e.type) {
           case "field":
             return s(P, c({
               ref: t[e.formItem.name],
@@ -158,7 +158,7 @@ const ee = /* @__PURE__ */ R({
               }, e == null ? void 0 : e.control), null)
             });
           case "picker":
-            return s(g, null, [k(e, !0), s(G, c({
+            return s(g, null, [k(e, !0), s(S, c({
               show: e.showPopup,
               "onUpdate:show": (l) => e.showPopup = l,
               round: !0,
@@ -183,7 +183,7 @@ const ee = /* @__PURE__ */ R({
               }
             })]);
           case "datePicker":
-            return s(g, null, [k(e), s(G, c({
+            return s(g, null, [k(e), s(S, c({
               show: e.showPopup,
               "onUpdate:show": (l) => e.showPopup = l,
               round: !0,
@@ -205,7 +205,7 @@ const ee = /* @__PURE__ */ R({
               }
             })]);
           case "timePicker":
-            return s(g, null, [k(e), s(G, c({
+            return s(g, null, [k(e), s(S, c({
               show: e.showPopup,
               "onUpdate:show": (l) => e.showPopup = l,
               round: !0,
@@ -237,14 +237,14 @@ const ee = /* @__PURE__ */ R({
                 e.showPopup = !1;
                 const u = (d) => {
                   var b, y, U;
-                  return `${(b = d == null ? void 0 : d.getFullYear) == null ? void 0 : b.call(d)}-${((y = d == null ? void 0 : d.getMonth) == null ? void 0 : y.call(d)) + 1}-${(U = d == null ? void 0 : d.getDate) == null ? void 0 : U.call(d)}`;
+                  return `${(b = d == null ? void 0 : d.getFullYear) == null ? void 0 : b.call(d)}-${String(((y = d == null ? void 0 : d.getMonth) == null ? void 0 : y.call(d)) + 1).padStart(2, "0")}-${String((U = d == null ? void 0 : d.getDate) == null ? void 0 : U.call(d)).padStart(2, "0")}`;
                 };
                 switch ((I = e == null ? void 0 : e.control) == null ? void 0 : I.type) {
                   case "multiple":
                     a.model[e.formItem.name] = l.reduce((d, b) => (d.push(u(b)), d), []), e.formItem.text = `选择了 ${l.length} 个日期`;
                     break;
                   case "range":
-                    a.model[e.formItem.name] = `${u(l[0])}~${u(l[1])}`;
+                    a.model[e.formItem.name] = [u(l[0]), u(l[1])];
                     break;
                   default:
                     a.model[e.formItem.name] = u(l);
@@ -255,7 +255,7 @@ const ee = /* @__PURE__ */ R({
               ...(A = e == null ? void 0 : e.control) == null ? void 0 : A.slots
             })]);
           case "cascader":
-            return s(g, null, [k(e, !0), s(G, c({
+            return s(g, null, [k(e, !0), s(S, c({
               show: e.showPopup,
               "onUpdate:show": (l) => e.showPopup = l,
               round: !0,
@@ -287,7 +287,7 @@ const ee = /* @__PURE__ */ R({
               inputAlign: "right"
             }, e.formItem), {
               label: () => e.formItem.label ?? "",
-              ...($ = e == null ? void 0 : e.control) == null ? void 0 : $.slots,
+              ...(G = e == null ? void 0 : e.control) == null ? void 0 : G.slots,
               input: () => {
                 var l, u, I, d, b, y, U, _;
                 return (u = (l = e == null ? void 0 : e.control) == null ? void 0 : l.slots) != null && u.input && typeof ((d = (I = e == null ? void 0 : e.control) == null ? void 0 : I.slots) == null ? void 0 : d.input) == "function" ? s(g, null, [(U = (y = (b = e == null ? void 0 : e.control) == null ? void 0 : b.slots) == null ? void 0 : y.input) == null ? void 0 : U.call(y, {

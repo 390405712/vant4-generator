@@ -155,7 +155,8 @@ export default defineComponent({
                       formOption.formItem.text = `选择了 ${value.length} 个日期`
                       break;
                     case 'range':
-                      _attrs.model[formOption.formItem.name] = [formatDate(value[0]),formatDate(value[1])]
+                      _attrs.model[formOption.formItem.name] = [formatDate(value[0]), formatDate(value[1])]
+                      formOption.formItem.text = `${formatDate(value[0])}~${formatDate(value[1])}`
                       break;
                     default:
                       _attrs.model[formOption.formItem.name] = formatDate(value)

@@ -5,7 +5,7 @@ import type { FormAttrs, FormOption, CheckboxGroup as CheckboxGroupType, RadioGr
 import type { Expose } from './vant'
 import type { DatePickerColumnType } from 'vant/lib/date-picker/DatePicker.d'
 import type { CascaderOption } from 'vant/lib/cascader/types'
-
+import type { PickerOption, PickerColumn } from 'vant';
 export default defineComponent({
   name: 'FormGenerator',
   setup(props, { expose, attrs, slots, emit }) {
@@ -90,6 +90,10 @@ export default defineComponent({
             </Field>
             break;
           case 'picker':
+            if (!formOption.formItem.hasOwnProperty('text') && _attrs.model[formOption.formItem.name] && formOption?.control?.columns) {
+              formOption.formItem.text = (formOption?.control?.columns as PickerOption[]).find(i => i[formOption?.control?.columnsFieldNames?.value ?? 'value'] === _attrs.model[formOption.formItem.name])?.[formOption?.control?.columnsFieldNames?.text ?? 'text']
+              // TODO PickerColumn)[]
+            }
             return <>
               {renderField(formOption, true)}
               <Popup v-model={[formOption.showPopup, 'show', ['']]} round position="bottom" {...formOption.popup}>
@@ -195,6 +199,7 @@ export default defineComponent({
                 return _attrs.model[formOption.formItem.name]
               },
             }}
+              v-model={_attrs.model[formOption.formItem.name]}
               {...formOption.formItem} />
             break;
         }

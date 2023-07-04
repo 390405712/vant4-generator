@@ -5,7 +5,7 @@ import type { FormAttrs, FormOption, CheckboxGroup as CheckboxGroupType, RadioGr
 import type { Expose } from './vant'
 import type { DatePickerColumnType } from 'vant/lib/date-picker/DatePicker.d'
 import type { CascaderOption } from 'vant/lib/cascader/types'
-import type { PickerOption, PickerColumn } from 'vant';
+import type { PickerOption, PickerColumn, PickerFieldNames } from 'vant';
 export default defineComponent({
   name: 'FormGenerator',
   setup(props, { expose, attrs, slots, emit }) {
@@ -25,7 +25,7 @@ export default defineComponent({
                 ? ''
                 : slots?.default
                   ? <>{slots.default()[0].children}</>
-                  : <Button block type="primary" native-type="submit">提交</Button>
+                  : <Button loading={_attrs.loading} block type="primary" native-type="submit">提交</Button>
               }
             </CellGroup>
           </Form >
@@ -37,6 +37,20 @@ export default defineComponent({
       }
       function renderControl(formOption: FormOption) {
         $refs[formOption.formItem.name] = ref()
+        function getText(arr: PickerOption[], val: string, columnsFieldNames: PickerFieldNames, splice: boolean = false): any {
+          if (!Array.isArray(arr)) return ''
+          for (let index = 0; index < arr.length; index++) {
+            const item = arr[index];
+            if (item[columnsFieldNames?.value ?? 'value'] === val) return item[columnsFieldNames?.text ?? 'text'] || ''
+            if ((item[columnsFieldNames?.children ?? 'children'] as PickerColumn[])?.length) {
+              const text = getText(item[columnsFieldNames?.children ?? 'children'] as PickerColumn, val, columnsFieldNames, splice)
+              if (text) {
+                if (splice) return `${item[columnsFieldNames?.text ?? 'text']}/${text}`
+                return text
+              }
+            }
+          }
+        }
         switch (formOption.type) {
           case 'field':
             return <Field ref={$refs[formOption.formItem.name]} inputAlign='right' v-model={_attrs.model[formOption.formItem.name]} {...formOption.formItem} {...formOption.control} v-slots={{ ...formOption?.control?.slots }} />
@@ -68,7 +82,7 @@ export default defineComponent({
           case 'switch':
             return <Field class="field-switch" readonly v-slots={{
               'right-icon': () => (
-                <Switch ref={$refs[formOption.formItem.name]} disabled={_attrs.disabled} size="24px" modelValue={_attrs.model[formOption.formItem.name]} onUpdate:modelValue={(val) => { _attrs.model[formOption.formItem.name] = val }} {...formOption?.control} v-slots={{ ...formOption?.control?.slots }} />
+                <Switch ref={$refs[formOption.formItem.name]} disabled={_attrs.disabled} size="24px" modelValue={_attrs.model[formOption.formItem.name]} onUpdate: modelValue={(val) => { _attrs.model[formOption.formItem.name] = val }} {...formOption?.control} v-slots={{ ...formOption?.control?.slots }} />
               )
             }} {...formOption.formItem} >
             </Field>
@@ -91,8 +105,19 @@ export default defineComponent({
             break;
           case 'picker':
             if (!formOption.formItem.hasOwnProperty('text') && _attrs.model[formOption.formItem.name] && formOption?.control?.columns) {
-              formOption.formItem.text = (formOption?.control?.columns as PickerOption[]).find(i => i[formOption?.control?.columnsFieldNames?.value ?? 'value'] === _attrs.model[formOption.formItem.name])?.[formOption?.control?.columnsFieldNames?.text ?? 'text']
-              // TODO PickerColumn)[]
+              if (Array.isArray((formOption?.control?.columns as PickerOption[][])[0])) {
+                formOption.formItem.text = (formOption?.control?.columns as PickerOption[][]).reduce((arr: string[], item: PickerOption[], index: number) => {
+                  arr.push(item.find(i => i[formOption?.control?.columnsFieldNames?.value ?? 'value'] === _attrs.model[formOption.formItem.name]?.[index])?.[formOption?.control?.columnsFieldNames?.text ?? 'text'])
+                  return arr
+                }, []).join('/')
+              } else if (Array.isArray(_attrs.model[formOption.formItem.name])) {
+                formOption.formItem.text = _attrs.model[formOption.formItem.name].reduce((arr: string[], item: string) => {
+                  arr.push(getText(formOption?.control?.columns as PickerOption[], item, formOption?.control?.columnsFieldNames as PickerFieldNames))
+                  return arr
+                }, []).join('/')
+              } else {
+                formOption.formItem.text = getText(formOption?.control?.columns as PickerOption[], _attrs.model[formOption.formItem.name], formOption?.control?.columnsFieldNames as PickerFieldNames)
+              }
             }
             return <>
               {renderField(formOption, true)}
@@ -173,6 +198,9 @@ export default defineComponent({
             </>
             break;
           case 'cascader':
+            if (_attrs.model[formOption.formItem.name]) {
+              formOption.formItem.text = getText(formOption?.control?.options as CascaderOption[], _attrs.model[formOption.formItem.name], formOption?.control?.fieldNames as PickerFieldNames, true)
+            }
             return <>
               {renderField(formOption, true)}
               <Popup v-model={[formOption.showPopup, 'show', ['']]} round position="bottom" {...formOption.popup}>
@@ -199,7 +227,6 @@ export default defineComponent({
                 return _attrs.model[formOption.formItem.name]
               },
             }}
-              v-model={_attrs.model[formOption.formItem.name]}
               {...formOption.formItem} />
             break;
         }

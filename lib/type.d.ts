@@ -59,6 +59,7 @@ export type RefFormGenerator = () => {
  */
 export type FormAttrs<T = Record<string, any>> = {
   [key: string]: any
+  loading?:boolean
   model: T
   formOption: FormOption[]
 } & Partial<FormProps> & FormEvents
